@@ -22,6 +22,7 @@ nginx
 
 [apache]
 tomcat1
+#tomcat1_5
 tomcat2 myvar=34 # host specific vars override group vars
 tomcat3 mysecret=""'03#pa33w0rd'"" # proper quoting to prevent value changes
 

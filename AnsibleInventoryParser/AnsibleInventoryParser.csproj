@@ -16,6 +16,8 @@
         <RepositoryType>GitHub</RepositoryType>
         <PackageTags>ansible inventory parser pulumi</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>1.0.1</Version>
+        <PackageReleaseNotes>Improve handling of groups for outcommented lines</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

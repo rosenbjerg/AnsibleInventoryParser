@@ -45,12 +45,16 @@ public static partial class AnsibleHostsFileParser
         
         foreach (var line in lines)
         {
-            var trimmedLine = CleanLine(line);
+            var (trimmedLine, wasComment) = CleanLine(line);
 
             if (string.IsNullOrEmpty(trimmedLine))
             {
-                currentGroup = ungrouped;
-                currentGroupName = string.Empty;
+                if (!wasComment)
+                {
+                    currentGroup = ungrouped;
+                    currentGroupName = string.Empty;
+                }
+
                 continue;
             }
 
@@ -89,7 +93,7 @@ public static partial class AnsibleHostsFileParser
         return Transform(groups);
     }
 
-    private static string CleanLine(string line)
+    private static (string cleanedLine, bool wasComment) CleanLine(string line)
     {
         var commentCanBeginFrom = 0;
         var trimmedLine = Unquote().Replace(line.Trim(), m =>
@@ -104,7 +108,7 @@ public static partial class AnsibleHostsFileParser
             trimmedLine = trimmedLine[..commentStart].TrimEnd();
         }
 
-        return trimmedLine;
+        return (trimmedLine, commentStart != -1);
     }
 
     private static Dictionary<string, List<Dictionary<string, string>>> Transform(Dictionary<string, List<Dictionary<string, string>>> groups)
