@@ -7,8 +7,8 @@ internal class BooleanConverter : JsonConverter<bool>
 {
     public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        var data = reader.GetString();
-        return data!.ToLowerInvariant() == "true" || data == "yes";
+        var data = reader.GetString()!.ToLowerInvariant();
+        return data is "true" or "yes";
     }
 
     public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
